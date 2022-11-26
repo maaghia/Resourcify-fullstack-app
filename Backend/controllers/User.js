@@ -24,10 +24,10 @@ const login = async (req, res) => {
 // Signup the user
 const signup = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(`req: ${req.body}`);
   try {
     const user = await User.signup(email, password);
-
+    console.log(`user: ${user}`);
     //Create the JWT
     //const token = generateToken(user._id);
 
