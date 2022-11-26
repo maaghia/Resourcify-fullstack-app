@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
@@ -19,7 +21,7 @@ const UserSchema = new Schema({
 }, {timestamps: true});
 
 UserSchema.statics.signup = async function(email, password) {
-
+    console.log(email, password)
     //Validating email and password
     if(!validator.isEmail(email)){
         throw Error("Credentials must be valid")
