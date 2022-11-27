@@ -21,7 +21,7 @@ const ResourceSchema = new Schema({
     required: true,
   },
   likes: {
-    type: Array,
+    type: Number,
     required: true,
   }
 }, {timestamps: true});
