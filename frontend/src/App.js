@@ -2,7 +2,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App underline">
+    <div className="App">
       hey bunny ...
     </div>
   );
