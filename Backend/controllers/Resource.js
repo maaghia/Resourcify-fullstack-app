@@ -15,9 +15,12 @@ const createResource = async (req, res) => {
 
 // Fetch all resources
 const fetchResources = async (req, res) => {
-    const resources = await Resource.find({});
-  
-    res.status(200).json(resources);
+    try {
+      const resources = await Resource.find({}).sort({createdAt: -1});
+      res.status(200).json(resources);
+    } catch (error) {
+      
+    }
   };
   
   // Fetch on resources by title
@@ -55,21 +58,36 @@ const fetchResources = async (req, res) => {
   }
   
 const updateResource = async (req, res) => {
-    const {id} = rea.params;
+    try {
+      const {id} = rea.params;
 
-    if(!mongoose.Types.ObjectID.isValid(id)){
+      if(!mongoose.Types.ObjectID.isValid(id)){
         return res.status(404).json({error: "Resource not found"});
     }
-    res.status(200).json(resource);
-}
+      //check weather this resource belongs to the signed in user
+      if(!resource.postedBy.equals(user_id)){
+        throw new Error("You are not authorized to do this!");
+      }
+    res.status(200).json(resource);  
+    } catch (error) {
+      throw new Error("Error finding the resource");
+    }
+};
 
 const deleteResource = async (req, res) => {
-    const {id} = rea.params;
-
+    try {
+      const {id} = rea.params;
     if(!mongoose.Types.ObjectID.isValid(id)){
         return res.status(404).json({error: "Resource not found"});
     }
-}
+    //check weather this resource belongs to the signed in user
+    if(!resource.postedBy.equals(user_id)){
+      throw new Error("You are not authorized to do this!");
+    }
+    } catch (error) {
+      throw new Error("Error finding the resource");
+    }
+};
 
 const likeResource = async (req, res) => {
     const {id} = rea.params;
